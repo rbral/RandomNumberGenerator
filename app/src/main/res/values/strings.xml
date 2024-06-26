@@ -55,6 +55,7 @@
     <string name="from_hint">From</string>
     <string name="to_hint">To</string>
     <string name="initial_result" />
+    <string name="error_msg">Please enter valid integers.</string>
 
     <style name="from_helper_text">From</style>
 

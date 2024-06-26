@@ -22,6 +22,9 @@ import com.example.random_number_generator.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -30,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private RandomNumber mRandomNumber;
     private ArrayList<Integer> mNumberHistory;
     private final String mKEY = "KEY";
+    private EditText mFromEditText;
+    private EditText mToEditText;
+    private TextView mResult;
 
 
     @Override
@@ -43,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         // setup Fields:
         mRandomNumber = new RandomNumber();
         initializeHistoryList(savedInstanceState, mKEY);
+        mFromEditText = findViewById(R.id.from_et_text);
+        mToEditText = findViewById(R.id.to_et_text);
+        mResult = findViewById(R.id.tv_result);
     }
 
     private void initializeHistoryList (Bundle savedInstanceState, String key)
@@ -75,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = defaultSharedPreferences.edit();
 
         editor.putString(mKEY, mNumberHistory.toString());
+        editor.apply();
 
         // Save current game or remove any prior game to/from default shared preferences
         /*if (mUseAutoSave) {
@@ -95,12 +105,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private static void handleFABClick(View v) {
-        Snackbar.make (v, "Hello, World!",
-                        Snackbar.LENGTH_LONG)
-                .setAnchorView (R.id.fab)
-                .setAction ("Action", null)
-                .show ();
+    private void handleFABClick(View v) {
+        try
+        {
+            int fromData = Integer.parseInt(mFromEditText.getText().toString());
+            int toData = Integer.parseInt(mToEditText.getText().toString());
+            mRandomNumber.setFromTo(fromData, toData);
+
+            int currentRandomNumber = mRandomNumber.getCurrentRandomNumber();
+            mNumberHistory.add(currentRandomNumber);
+            mResult.setText(String.valueOf(currentRandomNumber));
+            mResult.setVisibility(View.VISIBLE);
+        }
+        catch (NumberFormatException e)
+        {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    R.string.error_msg,
+                    Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private void setupToolbar() {
