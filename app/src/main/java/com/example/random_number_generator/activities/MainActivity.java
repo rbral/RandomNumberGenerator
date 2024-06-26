@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mFromEditText;
     private EditText mToEditText;
     private TextView mResult;
+    private int currentRandomNumber;
 
 
     @Override
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putString(mKEY, mNumberHistory.toString());
+        outState.putIntegerArrayList(mKEY, mNumberHistory);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = defaultSharedPreferences.edit();
 
-        editor.putString(mKEY, mNumberHistory.toString());
+        editor.putString(mKEY, Utils.getJSONStringFromNumberList(mNumberHistory));
         editor.apply();
 
         // Save current game or remove any prior game to/from default shared preferences
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             int toData = Integer.parseInt(mToEditText.getText().toString());
             mRandomNumber.setFromTo(fromData, toData);
 
-            int currentRandomNumber = mRandomNumber.getCurrentRandomNumber();
+            currentRandomNumber = mRandomNumber.getCurrentRandomNumber();
             mNumberHistory.add(currentRandomNumber);
             mResult.setText(String.valueOf(currentRandomNumber));
             mResult.setVisibility(View.VISIBLE);
