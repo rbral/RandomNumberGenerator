@@ -1,12 +1,17 @@
 package com.example.random_number_generator.activities;
 
+import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.random_number_generator.R;
+import com.example.random_number_generator.lib.Utils;
 import com.example.random_number_generator.models.RandomNumber;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RandomNumber mRandomNumber;
     private ArrayList<Integer> mNumberHistory;
+    private final String mKEY = "KEY";
 
 
     @Override
@@ -33,6 +39,51 @@ public class MainActivity extends AppCompatActivity {
         setContentView (R.layout.activity_main);
         setupToolbar();
         setupFAB();
+
+        // setup Fields:
+        mRandomNumber = new RandomNumber();
+        initializeHistoryList(savedInstanceState, mKEY);
+    }
+
+    private void initializeHistoryList (Bundle savedInstanceState, String key)
+    {
+        if (savedInstanceState != null) {
+            mNumberHistory = savedInstanceState.getIntegerArrayList (key);
+        }
+        else {
+            String history = getDefaultSharedPreferences (this).getString (key, null);
+            mNumberHistory = history == null ?
+                    new ArrayList<> () : Utils.getNumberListFromJSONString (history);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(mKEY, mNumberHistory.toString());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveOrDeleteGameInSharedPrefs();
+    }
+
+    private void saveOrDeleteGameInSharedPrefs() {
+        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = defaultSharedPreferences.edit();
+
+        editor.putString(mKEY, mNumberHistory.toString());
+
+        // Save current game or remove any prior game to/from default shared preferences
+        /*if (mUseAutoSave) {
+            editor.putString(mKEY_GAME, mGame.getJSONFromCurrentGame());
+        } else {
+            editor.remove(mKEY_GAME);
+        }
+
+        editor.apply();*/
     }
 
     private void setupFAB() {
