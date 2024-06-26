@@ -38,11 +38,11 @@
     <style name="big_text_view_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/standard_margin</item>
-        <item name="android:textAppearance">@style/TextAppearance.Material3.HeadlineSmall</item>
+        <item name="android:layout_marginTop">@dimen/large_margin</item>
+        <item name="android:textAppearance">@style/TextAppearance.Material3.HeadlineLarge</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/colorTertiary</item>
     </style>
 
-    <dimen name="standard_margin">16dp</dimen>
+
 </resources>
