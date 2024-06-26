@@ -4,4 +4,5 @@
     <dimen name="double_activity_margin">16dp</dimen>
     <dimen name="default_button_text_margin">26dp</dimen>
     <dimen name="slim_margin">4dp</dimen>
+    <dimen name="inputMinWidth">32dp</dimen>
 </resources>

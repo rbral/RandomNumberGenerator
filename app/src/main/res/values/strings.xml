@@ -9,7 +9,7 @@
 
     <!-- Strings used for Main Activity -->
     <string name="info_title">How to Play</string>
-    <string name="banner_text">Please tap the number of stones to remove:</string>
+    <string name="banner_text">Please enter in the numbers</string>
     <string name="new_game">New Game</string>
     <string name="about">About</string>
     <string name="one">1</string>
@@ -50,5 +50,12 @@
     <string name="auto_save_off">On exit, the game in progress and statistics *won\'t* be saved</string>
     <string name="auto_save_on">On exit, the game in progress and statistics *will* be saved</string>
 
+
+
+    <string name="from_hint">From</string>
+    <string name="to_hint">To</string>
+    <string name="initial_result" />
+
+    <style name="from_helper_text">From</style>
 
 </resources>
