@@ -2,6 +2,8 @@ package com.example.random_number_generator.activities;
 
 import static androidx.preference.PreferenceManager.getDefaultSharedPreferences;
 
+import static com.example.random_number_generator.lib.Utils.showInfoDialog;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -171,10 +173,12 @@ public class MainActivity extends AppCompatActivity {
         mSnackbar.show();
     }
 
-    private void clearHistory() {
+    private void showHistory() {
+        Utils.showInfoDialog (MainActivity.this,
+                "History", mNumberHistory.toString());
     }
 
-    private void showHistory() {
+    private void clearHistory() {
     }
 
 
