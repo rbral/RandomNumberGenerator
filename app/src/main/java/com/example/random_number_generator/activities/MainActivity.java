@@ -73,16 +73,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putIntegerArrayList(mKEY, mNumberHistory);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        saveOrDeleteGameInSharedPrefs();
+        saveHistoryToSharedPrefs();
     }
 
+    private void saveHistoryToSharedPrefs() {
+        SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = defaultSharedPreferences.edit();
+
+        editor.putString(mKEY, Utils.getJSONStringFromNumberList(mNumberHistory));
+        editor.apply();
+    }
+
+    // can delete this:
     private void saveOrDeleteGameInSharedPrefs() {
         SharedPreferences defaultSharedPreferences = getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = defaultSharedPreferences.edit();
@@ -120,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             mNumberHistory.add(currentRandomNumber);
             mResult.setText(String.valueOf(currentRandomNumber));
             mResult.setVisibility(View.VISIBLE);
+            saveHistoryToSharedPrefs();
         }
         catch (NumberFormatException e)
         {
@@ -180,6 +189,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void clearHistory() {
         mNumberHistory.clear();
+        saveHistoryToSharedPrefs();
+        Toast.makeText(this, "History cleared", Toast.LENGTH_SHORT).show();
     }
 
 
