@@ -184,13 +184,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void showHistory() {
         Utils.showInfoDialog (MainActivity.this,
-                "History", mNumberHistory.toString());
+                getString(R.string.history_title), mNumberHistory.toString());
     }
 
     private void clearHistory() {
         mNumberHistory.clear();
         saveHistoryToSharedPrefs();
-        Toast.makeText(this, "History cleared", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.history_cleared_message), Toast.LENGTH_SHORT).show();
     }
 
 

@@ -59,6 +59,8 @@
     <string name="action_show_history">Show History</string>
     <string name="action_clear_history">Clear History</string>
     <string name="action_about">About</string>
+    <string name="history_title">History</string>
+    <string name="history_cleared_message">History cleared!</string>
 
     <string name="about_text">Rivka\'s MCOO 255 Random Number Generator App Fall 2023</string>
 
