@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mToEditText;
     private TextView mResult;
     private int currentRandomNumber;
+    private Snackbar mSnackbar;
 
 
     @Override
@@ -148,11 +149,32 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_show_history) {
+            showHistory();
+            return true;
+        } else if (id == R.id.action_clear_history)
+        {
+            clearHistory();
+            return true;
+        } else if (id == R.id.action_about) 
+        {
+            showAbout();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showAbout() {
+        mSnackbar = Snackbar.make(findViewById(android.R.id.content), getString(R.string.about_text),
+                Snackbar.LENGTH_LONG);
+        mSnackbar.show();
+    }
+
+    private void clearHistory() {
+    }
+
+    private void showHistory() {
     }
 
 
