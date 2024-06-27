@@ -56,7 +56,8 @@
         <TextView
             android:id="@+id/tv_result"
             android:text="@string/initial_result"
-            style="@style/big_text_view_style" />
+            style="@style/big_text_view_style"
+            android:freezesText="true"/>
 
 
     </LinearLayout>
